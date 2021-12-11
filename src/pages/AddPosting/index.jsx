@@ -1,6 +1,18 @@
 import React from "react";
+import { addDoc, collection, getFirestore } from '@firebase/firestore';
+
 
 const AddPosting = () => {
+  
+  // FUNCTIONS
+  const handleSubmit = ()=>{
+    const firestore = getFirestore();
+    // TODO: Get form data here
+    // TODO: structute data in object 
+    const post = {}; // temp
+    addDoc(collection(firestore,'posts'),post)
+  }
+
   return (
     <div className="container my-5">
       <div className="row d-flex justify-content-center">
