@@ -1,16 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { addDoc, collection, getFirestore } from '@firebase/firestore';
 
 
 const AddPosting = () => {
   
+  const [form,setForm] = useState({
+    company: "",
+    jobTitle: "",
+    description:
+      "",
+    type: "",
+    isClosed: false,
+    location: {
+      city: "",
+      country: "",
+    },
+    salary: "",
+    date: {
+      post: new Date().toISOString(),
+      ppt: new Date().toISOString(),
+      test: new Date().toISOString(),
+      interview: new Date().toISOString(),
+    },
+    unit: "per month",
+    poster: "",
+    eligibility: {
+      branches: [],
+      graduationYear: [],
+      cgpa: "",
+    },
+  });
+
   // FUNCTIONS
   const handleSubmit = ()=>{
-    const firestore = getFirestore();
+    console.log('Submitiing data');
     // TODO: Get form data here
+    console.log(form);
+    
     // TODO: structute data in object 
-    const post = {}; // temp
+    const post = form; // temp
+    console.log(post);
+    // return;
+    const firestore = getFirestore();
     addDoc(collection(firestore,'posts'),post)
+  }
+
+  const handleChange = (e)=>{
+    setForm(form=>{
+      const _form = {...form};
+      _form[e.target.name] = e.target.value;
+      return _form; 
+    })
   }
 
   return (
@@ -25,6 +65,9 @@ const AddPosting = () => {
                 className="form-control"
                 id="inputEmail4"
                 placeholder="Company name"
+                name="company"
+                value={form.company}
+                onChange={handleChange}
               />
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -48,6 +91,9 @@ const AddPosting = () => {
                 className="form-control"
                 id="inputEmail4"
                 placeholder="Job title"
+                name="jobTitle"
+                value={form.jobTitle}
+                onChange={handleChange}
               />
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -58,6 +104,9 @@ const AddPosting = () => {
                   className="form-control"
                   id="inputAddress"
                   placeholder="in INR"
+                  name="salary"
+                value={form.salary}
+                onChange={handleChange}
                 />
                 <select className="form-select" id="checktype">
                   <option>per hour</option>
@@ -75,11 +124,17 @@ const AddPosting = () => {
                   type="text"
                   className="form-control"
                   placeholder="City"
+                  name="location.city"
+                value={form['location.city']}
+                onChange={handleChange}
                 />
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Country"
+                  name="location.country"
+                value={form['location.country']}
+                onChange={handleChange}
                 />
               </div>
             </div>
@@ -89,7 +144,10 @@ const AddPosting = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="City"
+                  placeholder="Months"
+                  name="duration"
+                value={form.duration}
+                onChange={handleChange}
                 />
               </div>
             </div>
@@ -104,6 +162,9 @@ const AddPosting = () => {
                     type="text"
                     className="form-control"
                     placeholder=">="
+                    name="eligibility.cgpa"
+                value={form['eligibility.cgpa']}
+                onChange={handleChange}
                   />
                 </div>
               </div>
@@ -114,6 +175,9 @@ const AddPosting = () => {
                     type="text"
                     className="form-control"
                     placeholder="20XX, 20XY"
+                    name="eligibility.graduationYear"
+                value={form['eligibility.graduationYear']}
+                onChange={handleChange}
                   />
                 </div>
               </div>
@@ -202,6 +266,9 @@ const AddPosting = () => {
                   type="text"
                   className="form-control"
                   placeholder="Put the link here"
+                  name="talkLink"
+                value={form.talkLink}
+                onChange={handleChange}
                 />
               </div>
             </div>
@@ -212,6 +279,9 @@ const AddPosting = () => {
                   type="text"
                   className="form-control"
                   placeholder="Put the link here"
+                  name="talkLink"
+                value={form.talkLink}
+                onChange={handleChange}
                 />
               </div>
             </div>
@@ -223,12 +293,13 @@ const AddPosting = () => {
                   type="file"
                   className="form-control"
                   placeholder="Attach Files"
+
                 />
               </div>
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary mt-4">
+          <button type="button" onClick={handleSubmit} className="btn btn-primary mt-4">
             Submit
           </button>
         </div>
