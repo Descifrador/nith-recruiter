@@ -1,17 +1,27 @@
 import React from "react";
 import moment from "moment";
 import { useParams } from "react-router";
-import { posts } from "../../constants/config";
+import { useState } from "react";
+import { useEffect } from "react";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const Posting = () => {
   let { id } = useParams();
+  const [post,setPost] = useState()
+
+  useEffect(()=>{
+    (async()=>{
+      const db = getFirestore()
+      let snap = await getDoc(doc(db,'posts',id));
+      setPost(snap.data())
+    })()
+  },[])
+
   console.log(id);
+  if(!post) return null;
+
   return (
     <div className="container my-5">
-      {posts
-        .filter((post) => post.id == id)
-        .map((post) => {
-          return (
             <div className="card mb-4" key={post.id}>
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center">
@@ -55,7 +65,8 @@ const Posting = () => {
                     {">= " + post.eligibility.cgpa}
                     <br />
                     <strong>Graduation Year: </strong>
-                    {post.eligibility.graduationYear.join(", ")}
+                    {/* {post.eligibility.graduationYear.join(", ")} */}
+                    {post.eligibility.graduationYear}
                     <br />
                   </div>
                   <div className="col-sm">
@@ -89,8 +100,7 @@ const Posting = () => {
                 <a href={post.postId} className="stretched-link"></a>
               </div>
             </div>
-          );
-        })}
+        
     </div>
   );
 };

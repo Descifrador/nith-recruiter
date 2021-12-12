@@ -22,7 +22,7 @@ const AddPosting = () => {
       test: new Date().toISOString(),
       interview: new Date().toISOString(),
     },
-    unit: "per month",
+    unit: "",
     poster: "",
     eligibility: {
       branches: [],
@@ -31,15 +31,50 @@ const AddPosting = () => {
     },
   });
 
+
   // FUNCTIONS
   const handleSubmit = ()=>{
     console.log('Submitiing data');
     // TODO: Get form data here
     console.log(form);
+    let checkboxes = document.querySelectorAll('input[type=checkbox]');
     
+    let branches = new Array();
+    for(let checkbox of checkboxes){
+      // console.log(checkbox.value, " = ", checkbox.checked);
+      if(checkbox.checked) {
+        branches.push(checkbox.value);
+      }
+    }
+    // console.log(branches);
     // TODO: structute data in object 
-    const post = form; // temp
+    const post = {
+      company: form.company,
+      jobTitle: form.jobTitle,
+      description: "",
+      type: form.type,
+      isClosed: form.isClosed,
+      location: {
+        city: form['location.city'],
+        country: form['location.country'],
+      },
+      salary: form.salary,
+      unit: form.compType,
+      date: {
+        post: form.date.ppt,
+        ppt: form.date.ppt,
+        test: form.date.test,
+        interview: form.date.interview,
+      },
+      poster: form.poster,
+      eligibility: {
+        branches: branches,
+        graduationYear: form['eligibility.graduationYear'],
+        cgpa: form['eligibility.cgpa'],
+      },
+    }; // temp
     console.log(post);
+
     // return;
     const firestore = getFirestore();
     addDoc(collection(firestore,'posts'),post)
@@ -75,10 +110,15 @@ const AddPosting = () => {
                 <label className="input-group-text" htmlFor="checktype">
                   Type
                 </label>
-                <select className="form-select" id="checktype">
-                  <option selected>Full Time</option>
-                  <option>Internship</option>
-                  <option>Internship + Full Time</option>
+                <select className="form-select" 
+                  id="checktype" 
+                  name="type"
+                  value={form.type}
+                  onChange={handleChange}>
+                  <option>Select</option>
+                  <option value="Internship + Full Time">Internship + Full Time</option>
+                  <option value="Full Time">Full Time</option>
+                  <option value="Internship">Internship</option>
                 </select>
               </div>
             </div>
@@ -108,10 +148,13 @@ const AddPosting = () => {
                 value={form.salary}
                 onChange={handleChange}
                 />
-                <select className="form-select" id="checktype">
-                  <option>per hour</option>
-                  <option>per month</option>
-                  <option selected>per year</option>
+                <select className="form-select" id="checktype"
+                name="compType"
+                value={form.compType}
+                onChange={handleChange}>
+                  <option value="per hour">per hour</option>
+                  <option value="per month">per month</option>
+                  <option selected value="per year">per year</option>
                 </select>
               </div>
             </div>
@@ -186,8 +229,7 @@ const AddPosting = () => {
               <div className="col mb-3">
                 <div
                   className="input-group justify-content-center"
-                  id="branches"
-                >
+                  id="branches">
                   <div className="input-group-prepend">
                     <strong className="m-2">Branches</strong>
                   </div>
@@ -279,8 +321,8 @@ const AddPosting = () => {
                   type="text"
                   className="form-control"
                   placeholder="Put the link here"
-                  name="talkLink"
-                value={form.talkLink}
+                  name="testLink"
+                value={form.testLink}
                 onChange={handleChange}
                 />
               </div>
@@ -298,9 +340,8 @@ const AddPosting = () => {
               </div>
             </div>
           </div>
-
           <button type="button" onClick={handleSubmit} className="btn btn-primary mt-4">
-            Submit
+            ADD
           </button>
         </div>
       </div>

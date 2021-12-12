@@ -43,7 +43,8 @@ const Post = ({ post }) => {
             {">= " + post.eligibility.cgpa}
             <br />
             <strong>Graduation Year: </strong>
-            {post.eligibility.graduationYear.join(", ")}
+            {/* {post.eligibility.graduationYear.join(", ")} */}
+            {post.eligibility.graduationYear}
             <br />
           </div>
           <div className="col-sm">
@@ -76,9 +77,11 @@ const Post = ({ post }) => {
                 View
               </button>
             </Link>
-            <button type="button" className="btn btn-sm btn-outline-secondary">
-              Edit
-            </button>
+            <Link to={`/edit/${post.id}`}>
+              <button type="button" className="btn btn-sm btn-outline-secondary">
+                Edit
+              </button>
+            </Link>
           </div>
           <small className="text-muted">
             Posted {moment(post.date.post).fromNow()} ago by {post.poster}

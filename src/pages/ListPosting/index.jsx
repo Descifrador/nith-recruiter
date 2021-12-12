@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../components/Post";
-import {doc, getDocs,query, collection, getFirestore} from 'firebase/firestore'
-import './ListPosting.css'
-
+import {doc, getDocs,query, collection, getFirestore} from 'firebase/firestore';
+import './ListPosting.css';
+import img1 from './nith.png';
+import nithlogo from './NIT_Hamirpur_logo.png';
 const ListPosting = () => {
 
   const [posts,setPosts] = useState();
@@ -16,7 +17,7 @@ const ListPosting = () => {
         if(docSnap){
          let data = [];
           docSnap.forEach(doc=>{
-           data.push(doc.data())
+           data.push({id: doc.id,...doc.data()})
          }) 
          setPosts(data);
         }
@@ -29,88 +30,127 @@ const ListPosting = () => {
 
   return (
     <div className="container my-5">
+      <div id = "home" className="row"></div>
       <div id="header">
         <div id="logo-holder">
-          <div id="logo">
-            <img src="index.png"/> 
+          <div id="logo" style={{height:"50px", display: "flex", alignItems: "center"}}>
+            <img src={nithlogo} style={{height: "90%", width: "auto"}}/> 
           </div>
         </div>
         <div id="nav" className="nav">
           <a href="#home">Home</a>
           <a href="#about">About Us</a>
-          <a href="#infrastructure">Infrastructure</a>
           <a href="#placement-record">Placement Record</a>
           <a href="#footer">Contact Us</a>
         </div>
       </div>
-      <div className="space"></div>
-
-      <div id = "home" className="row"></div>
-      {posts?.map((post, index) => {
-        return (
-          <div key={index} className="d-flex justify-content-center">
-            <div className="col-md-8 col-sm-12">
-              
-                <Post post={post} />
-           
+      <div>
+        <br></br>
+        <br></br>
+        <br></br>
+      </div>
+        {posts?.map((post, index) => {
+          return (
+            <div key={index} className="d-flex justify-content-center">
+              <div className="col-md-8 col-sm-12">
+                
+                  <Post post={post} />
+            
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
       <div id="about" class="section">
       <div class="about-text">
-        <h1>Indian Institute of Information Technology</h1>
+        <h1>National Institute of Technology Hamirpur</h1>
         <h2 ClassName="aboutHeading">
-          is set up at Kalyani,
-          Nadia District by Government of India (MHRD), Government of West Bengal and Industry Partners, with an objective
-          to produce best-in-class human resources in IT and to harness the multidimensional facets of IT in various domains.
-          Presently, the institute is being mentored by Indian Institute of Technology Kharagpur with Prof. Partha P. Chakrabarti, Director, IIT Kharagpur as Mentor Director
-          and Prof. Anupam Basu, Professor, Department of Computer Science and Engineering, IIT Kharagpur as Executive Director/Professor-In-Charge.
+         is one of the thirty-one NITs of the country, which came into existence on 7th August 1986 as Regional Engineering College, 
+         a joint and cooperative enterprise of the Govt. of India and Govt. of Himachal Pradesh.
+        <br></br>
+        <br></br>
+        On 26th June 2002, REC Hamirpur was awarded the status of Deemed University and upgraded to National Institute of Technology. 
+        NIT Hamirpur is an institute of National importance set up by an act of Parliament namely the National Institute of Technology Act 2007 which received the accent of the President of India on 5th June, 2007. 
         </h2>
       </div>
       <div class="about-img">
-        
+        <img src={img1}></img>
       </div>
     </div>
-      <div id="infrastructure" class="section">
-      <div class="text-div">
-          <h1>Infrastructure</h1>
-          <h2>
-            The Government of West Bengal has lent support to the institute by granting
-            50 acres of land for setting up the Campus.
-            While construction has been started in the land provided,
-            the institute is presently running from the temporary campus at Webel IT Park, Kalyani.
-            The infrastructure of the building is pretty good and sufficient for the functioning of the institution.
-            The classrooms alloted for the institution are smart classrooms, which have video conferencing facility.
-            Faculties and industry experts from distant locations take classes and interact with the students through video conferencing in the classrooms.
-          </h2>
+    
+    <div id="placement-record" class="section">
+      <h1>Placement Statistics</h1>
+      <div id="placement-synopsis">
+      	<div id="placement-detail-1">
+      		<div class="table100 ver5 m-b-110">
+
+      			<div class="table100-body js-pscroll">
+						<table style={{width:"100%"}}>
+							<caption style={{fontSize: "25px", fontWeight: "none", textAlign: "center", backgroundColor: "#204584", color: "white", padding: "7px", textTransform: "uppercase", width: "100%"}}>Placement Statistics</caption>
+							<tbody>
+								<tr class="row100 body">
+									<td class="cell100 column1">No. of Students registered</td>
+									<td class="cell100 column2">600</td>
+									<td class="cell100 column3" style={{backgroundColor: "#008000"}}></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">No. of Job Offers</td>
+									<td class="cell100 column2">590</td>
+									<td class="cell100 column3" style={{backgroundColor: "#9B59B6"}}></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">Highest Package</td>
+									<td class="cell100 column2">2.3 crore</td>
+									<td class="cell100 column3"></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">Average Package</td>
+									<td class="cell100 column2">30 lpa</td>
+									<td class="cell100 column3"></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">Students going for Higher Studies</td>
+									<td class="cell100 column2">8</td>
+									<td class="cell100 column3" style={{backgroundColor: "#F4D03F"}}></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">% of students selected</td>
+									<td class="cell100 column2">99%</td>
+									<td class="cell100 column3" style={{backgroundColor: "darkorange"}}></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">Students qualified GATE-2018</td>
+									<td class="cell100 column2">98</td>
+									<td class="cell100 column3" style={{backgroundColor: "cornflowerblue"}}></td>
+								</tr>
+
+								<tr class="row100 body">
+									<td class="cell100 column1">Students qualified CAT-2018</td>
+									<td class="cell100 column2">12</td>
+									<td class="cell100 column3" style={{backgroundColor: "Chocolate"}}></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+			</div>
+      	</div>
+      	<div id="placement-chart">
+      		<canvas id="mycanvas" width="300" height="300"></canvas>
+      	</div>
       </div>
-      {/* <div class="icons-div">
-        <a href="http://iiitkalyani.ac.in/html/Campus.html" class="infra-icon">
-          <img src="img/building_blue.svg">
-          <span>CAMPUS</span>
-        </a>
-        <a href="http://iiitkalyani.ac.in/html/Hostel.html" class="infra-icon">
-          <img src="img/bunk.svg">
-          <span>HOSTEL</span>
-        </a>
-        <a href="http://iiitkalyani.ac.in/html/Other.html" class="infra-icon">
-          <img src="img/cooking.svg">
-          <span>CANTEEN</span>
-        </a>
-        <a href="http://iiitkalyani.ac.in/html/Medical.html" class="infra-icon">
-          <img src="img/hospital.svg">
-          <span>HOSPITAL</span>
-        </a>
-        <a href="http://iiitkalyani.ac.in/html/Labs.html" class="infra-icon">
-          <img src="img/lab.svg">
-          <span>LAB</span>
-        </a>
-        <a href="http://iiitkalyani.ac.in/html/Library.html" class="infra-icon">
-          <img src="img/books.svg">
-          <span>LIBRARY</span>
-        </a>
-      </div> */}
+      <div class="placement-points">
+        <ul>
+          <li>NIT Hamirpur had a successful placement session during 2017-18.</li>
+          <li>Students got offers from both on-campus and online/off-campus selection process.</li>
+          <li>Some students even qualified for GATE and CAT and some have went to pursue higher studies in IITs.</li>
+        </ul>
+      </div>
     </div>
 
       <div id="footer">
@@ -121,9 +161,8 @@ const ListPosting = () => {
             ADDRESS
           </span>
           <div class="footer-subsection-text">
-            Indian Institute of Information Technology, Kalyani
-            Webel IT Park (Near Buddha Park), Kalyani,
-            Nadia, West Bengal. PIN - 741235.
+          National Institute of Technology Hamirpur,
+          Himachal Pradesh, Pin No. 177005, India.
           </div>
         </div>
         <div id="footer-quick-links">
@@ -131,15 +170,13 @@ const ListPosting = () => {
             QUICK LINKS
           </span>
           <div class="footer-subsection-text">
-            <a href="">E brochure</a>
-            <a href="">Faculty Members</a>
-            <a href="">Administrative body</a>
-            <a href="">Mentor Institute</a>
-            <a href="">Anti ragging</a>
-            <a href="">Notifications</a>
-            <a href="">News and events</a>
-            <a href="">IIIT-PPP act</a>
-            <a href="">RTI</a>
+            <a href="">E brochure</a><br></br>
+            <a href="">Faculty Members</a><br></br>
+            <a href="">Administrative body</a><br></br>
+            <a href="">Mentor Institute</a><br></br>
+            <a href="">Anti ragging</a><br></br>
+            <a href="">Notifications</a><br></br>
+            <a href="">News and events</a><br></br>
           </div>
         </div>
         <div id="footer-explore">
@@ -147,11 +184,10 @@ const ListPosting = () => {
             EXPLORE
           </span>
           <div class="footer-subsection-text">
-            <a href="">Facilities</a>
-            <a href="">Film and Media Club (FMC)</a>
-            <a href="">Symphony (Music club)</a>
-            <a href="">Algoholic (Technical club)</a>
-            <a href="">How to reach IIIT Kalyani</a>
+            <a href="">Facilities</a><br></br>
+            <a href="">Nimbus</a><br></br>
+            <a href="">Hill Fair</a><br></br>
+            <a href="">How to reach NIT Hamipur</a><br></br>
           </div>
         </div>
 
@@ -160,8 +196,9 @@ const ListPosting = () => {
             CONTACT US
           </span>
           <div class="footer-subsection-text">
-            <a href="">Registrar - registrar@iiitkalyani.ac.in</a>
-            <a href="">IIIT Kalyani Office - office@iiitkalyani.ac.in</a>
+            <a href="">Phone No. : +91-01972-254011</a><br></br>
+            <a href="">Email : registrar@nith.ac.in</a><br></br>
+            <a href="">Fax : +91-1972-223834</a><br></br>
           </div>
           <div id="footer-icons">
             <i class="fab fa-facebook-f"></i>
