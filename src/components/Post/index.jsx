@@ -1,8 +1,27 @@
+import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
+  // FUNCTIONS
+
+  const handleDelete = () => {
+    const db = getFirestore();
+    deleteDoc(doc(db, "posts", post.id))
+      .then((res) => {
+        console.log("Deleted ", post.id, res);
+        let a = document.createElement("a");
+        a.href = "/";
+        a.click();
+      })
+      .catch((err) => {
+        console.log("Failed to delete. ", err.message);
+      });
+  };
+
+  // RENDER
+
   return (
     <div className="card mb-4 shadow-sm">
       <div className="card-body">
@@ -77,11 +96,13 @@ const Post = ({ post }) => {
                 View
               </button>
             </Link>
-            <Link to={`/edit/${post.id}`}>
-              <button type="button" className="btn btn-sm btn-outline-secondary">
-                Edit
-              </button>
-            </Link>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
           </div>
           <small className="text-muted">
             Posted {moment(post.date.post).fromNow()} ago by {post.poster}
