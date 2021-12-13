@@ -111,7 +111,6 @@ export default function Login() {
                         }}
                         src={nithlogo}
                         class="img-fluid"
-                        alt="Sample image"
                       />
                     </div>
                   </div>

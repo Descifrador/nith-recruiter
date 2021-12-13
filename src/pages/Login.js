@@ -19,7 +19,6 @@ export default function Login() {
               <img
                 src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png"
                 class="img-fluid"
-                alt="Sample image"
               />
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">

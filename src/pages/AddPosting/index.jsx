@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { addDoc, collection, getFirestore } from "@firebase/firestore";
-import Header from "../../components/Header";
 import { Footer } from "../../components/Footer/Footer";
 
 const AddPosting = () => {

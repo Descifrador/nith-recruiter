@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../components/Post";
 import {
-  doc,
   getDocs,
   query,
   collection,
@@ -36,12 +35,9 @@ const ListPosting = () => {
   return (
     <div>
       <div className="container my-5">
-        {/* <div id="home" className="row"></div> */}
         <Header />
-
         <div id="about" class="section">
           <div class="about-text">
-            <div style={{ padding: "40px" }}></div>
             <h1>National Institute of Technology Hamirpur</h1>
             <h2 ClassName="aboutHeading">
               is one of the thirty-one NITs of the country, which came into
