@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../components/Post";
-import {
-  getDocs,
-  query,
-  collection,
-  getFirestore,
-} from "firebase/firestore";
+import { getDocs, query, collection, getFirestore } from "firebase/firestore";
 import "./ListPosting.css";
 import img1 from "./nith.png";
 import Header from "../../components/Header";
@@ -60,7 +55,9 @@ const ListPosting = () => {
         </div>
 
         <div id="placement-record" class="section">
-          <h1>Placement Statistics</h1>
+          <h1 class="text-center" >
+            Placement Statistics
+          </h1>
           <div id="placement-synopsis" style={{ marginLeft: "40%" }}>
             <div id="placement-detail-1">
               <div class="table100 ver5 m-b-110">
@@ -179,11 +176,14 @@ const ListPosting = () => {
             </ul>
           </div>
         </div>
-        <div id="postings" className="row"></div>
-        <div style={{ paddingTop: "100px" }}></div>
+        <div id="postings" className="row">
+          <h1 class="text-center">
+            Ongoing Drives
+          </h1>
+        </div>
         {posts?.map((post, index) => {
           return (
-            <div key={index} className="d-flex justify-content-center">
+            <div key={index} className="d-flex justify-content-center my-5">
               <div className="col-md-8 col-sm-12">
                 <Post post={post} />
               </div>
